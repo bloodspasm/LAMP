@@ -23,8 +23,6 @@ if [ ! -f /.root_pw_set ]; then
 	/set_root_pw.sh
 fi
 
-exec /usr/sbin/sshd -D
-
 VOLUME_HOME="/var/lib/mysql"
 
 sed -ri -e "s/^upload_max_filesize.*/upload_max_filesize = ${PHP_UPLOAD_MAX_FILESIZE}/" \
