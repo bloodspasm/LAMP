@@ -29,7 +29,7 @@ ADD apache_default /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # Configure /app folder with sample app
-RUN git clone http://core.svn.wordpress.org/tags/4.3.1 /app
+RUN git clone https://git.oschina.net/zhanggangbz/wordpress431.git /app
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 RUN chmod -R 777 /app
 RUN chmod -R 777 /var/www/html
