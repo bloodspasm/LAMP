@@ -8,6 +8,7 @@ RUN apt-get update && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Add image configuration and scripts
+ADD set_root_pw.sh /set_root_pw.sh
 ADD start-apache2.sh /start-apache2.sh
 ADD start-mysqld.sh /start-mysqld.sh
 ADD run.sh /run.sh
@@ -28,17 +29,18 @@ ADD apache_default /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # Configure /app folder with sample app
-RUN git clone https://github.com/WordPress/WordPress.git /app
+RUN git clone http://core.svn.wordpress.org/tags/4.3.1 /app
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
 RUN chmod -R 777 /app
 RUN chmod -R 777 /var/www/html
 
 #Enviornment variables to configure php
-ENV PHP_UPLOAD_MAX_FILESIZE 10M
-ENV PHP_POST_MAX_SIZE 10M
+ENV PHP_UPLOAD_MAX_FILESIZE 50M
+ENV PHP_POST_MAX_SIZE 50M
+ENV AUTHORIZED_KEYS **None**
 
 # Add volumes for MySQL 
 VOLUME  ["/etc/mysql", "/var/lib/mysql" ]
 
-EXPOSE 80 3306
+EXPOSE 22 80 3306
 CMD ["/run.sh"]
