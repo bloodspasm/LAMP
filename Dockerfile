@@ -7,7 +7,7 @@ RUN apt-get update && \
   apt-get -y install supervisor git apache2 libapache2-mod-php5 mysql-server php5-mysql pwgen php-apc php5-mcrypt && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server pwgen
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install openssh-server
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config
   
   
@@ -36,6 +36,7 @@ RUN a2enmod rewrite
 # Configure /app folder with sample app
 RUN git clone https://git.oschina.net/zhanggangbz/wordpress431.git /app
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
+RUN chown -R www-data:www-data /app/wp-content /var/www/html
 RUN chmod -R 777 /app
 RUN chmod -R 777 /var/www/html
 
@@ -45,7 +46,7 @@ ENV PHP_POST_MAX_SIZE 50M
 ENV AUTHORIZED_KEYS **None**
 
 # Add volumes for MySQL 
-VOLUME  ["/etc/mysql", "/var/lib/mysql" ]
+VOLUME  ["/var/lib/mysql" ]
 
 EXPOSE 22 80 3306
 CMD ["/run.sh"]
