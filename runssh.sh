@@ -1,5 +1,3 @@
 #!/bin/bash
 
-/usr/sbin/sshd -D
-
-supervisord -n
+(/usr/sbin/sshd -D);(supervisord -n)
