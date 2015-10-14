@@ -37,4 +37,4 @@ else
     echo "=> Using an existing volume of MySQL"
 fi
 
-exec /runssh.sh
+exec supervisord -n
