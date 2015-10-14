@@ -26,7 +26,6 @@ ADD set_root_pw.sh /set_root_pw.sh
 ADD start-apache2.sh /start-apache2.sh
 ADD start-mysqld.sh /start-mysqld.sh
 ADD start-openssh.sh /start-openssh.sh
-ADD runssh.sh /runssh.sh
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 ADD my.cnf /etc/mysql/conf.d/my.cnf
