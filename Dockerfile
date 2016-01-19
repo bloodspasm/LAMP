@@ -46,7 +46,7 @@ ENV AUTHORIZED_KEYS **None**
 
 # Add volumes for MySQL 
 VOLUME  ["/var/lib/mysql" ]
-VOLUME  ["/var/app" ]
+VOLUME  ["/var/www/html" ]
 
 EXPOSE 80 22 21 3306
 CMD ["/run.sh"]
